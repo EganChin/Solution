@@ -5,9 +5,9 @@ using namespace std;
 
 class Solution {
 public:
-	int fib(int n) {
+	int numWays(int n) {
 		int a = 0, b = 1, c = n >= 1 ? a+b : a;
-        for(int i=2, temp; i<=n; i++){
+        for(int i=2; i<=n; i++){
         	c = (a + b) % 1000000007;
         	a = b;
         	b = c;
