@@ -58,9 +58,7 @@ private:
 		}
 		
 		int numLeft = midpos - inL;
-//		BFS(root);
 		root->left = buildTree(preL+1, preL + numLeft, inL, midpos - 1);
-//		BFS(root);
 		root->right = buildTree(preL + numLeft+1, preR, midpos+1, inR);
 		
 		return root;
@@ -79,3 +77,5 @@ int main(){
 
 	return 0;
 }
+
+//finish at 2020-02-22 11:41:15 

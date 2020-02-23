@@ -47,9 +47,7 @@ Node *create(int postL, int postR, int inL, int inR) {
     int numLeft = k - inL;
 
     root->left = create(postL, postL + numLeft - 1, inL, k - 1);
-    root->right = create(postL + numLeft, postR, k + 1, inR);
-    
-    
+    root->right = create(postL + numLeft, postR - 1, k + 1, inR);
 
     return root;
 }
