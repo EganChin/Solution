@@ -9,21 +9,27 @@ import java.util.Stack;
 // begin at 2020/2/24 9:50
 class CQueue {
 
-    private List<Integer> stack = new LinkedList<>();
+    private Stack<Integer> stack1 = new Stack<>();
+    private Stack<Integer> stack2 = new Stack<>();
 
     public CQueue() {
 
     }
 
     public void appendTail(int value) {
-        stack.add(stack.size(), value);
+        while (!stack1.isEmpty()){
+            stack2.push(stack1.pop());
+        }
+        stack1.push(value);
+        while (!stack2.isEmpty()){
+            stack1.push(stack2.pop());
+        }
+
     }
 
     public int deleteHead() {
-        if(stack.size() == 0) return -1;
-        int value = stack.get(0);
-        stack.remove(0);
-        return value;
+        if(stack1.isEmpty() && stack2.isEmpty()) return -1;
+        return stack1.pop();
     }
 
     public static void main(String[] args) {
@@ -41,4 +47,4 @@ class CQueue {
  * int param_2 = obj.deleteHead();
  */
 
-// finish at 2020/2/24 9:59
+// finish at 2020/2/24 10:14
