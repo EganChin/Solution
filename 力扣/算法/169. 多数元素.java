@@ -1,15 +1,14 @@
-//begin at 2020-02-26 23:29:21
+// 2020-03-06 21:20:28
 class Solution {
     public int majorityElement(int[] nums) {
-        int candidate = 0, count = 0;
-        for(int num:nums){
-            if(count == 0){
-                candidate = num;
+        int count = 0, num=-1;
+        for(int i:nums){
+            if(count==0){
+                num = i;
             }
-            count += (num == candidate ? 1 : -1);
+            count += (count==i ? 1:-1);
         }
-        return candidate;
+        return num;
     }
 }
-
-//finish at 2020-02-26 23:36:56
+// 2020-03-06 21:24:44
