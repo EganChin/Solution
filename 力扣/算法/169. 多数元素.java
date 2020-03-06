@@ -6,7 +6,7 @@ class Solution {
             if(count==0){
                 num = i;
             }
-            count += (count==i ? 1:-1);
+            count += (num==i ? 1:-1);
         }
         return num;
     }
