@@ -1,32 +1,23 @@
-/**
- * @author Egan
- * @date 2020/2/24 10:19
- **/
-
-// begin at 2020/2/24 10:19
+//2020-03-15 17:50:56
 class Solution {
-    int cnt;
-    boolean[][] vis;
 
+    boolean [][]vis;
+    int cnt = 0;
     public int movingCount(int m, int n, int k) {
-        if(k==0) return 1;
         vis = new boolean[m][n];
-        dfs(m, n, 0, 0, k);
+        dfs(m, n, k, 0, 0);
         return cnt;
     }
 
-    void dfs(int m, int n, int i, int j, int k){
-        if(i >= m || i<0 || j>=n || j<0) return;
-        if(vis[i][j]) return;
-        if(i%10+i/10+j%10+j/10 > k) return;
-
+    private void dfs(int m, int n, int k, int i, int j){
+        if(i<0 || i>=m || j<0 || j>=n || vis[i][j]) return;
+        if(i/10 + i%10 + j/10 + j%10 > k) return;
         vis[i][j] = true;
         cnt++;
-        dfs(m, n, i-1, j, k);
-        dfs(m, n, i+1, j, k);
-        dfs(m, n, i, j-1, k);
-        dfs(m, n, i, j+1, k);
-
+        dfs(m, n, k, i-1, j);
+        dfs(m, n, k, i+1, j);
+        dfs(m, n, k, i, j+1);
+        dfs(m, n, k, i, j-1);
     }
 }
-// finish at 2020/2/24 10:33
+//2020-03-15 18:02:46
