@@ -1,21 +1,16 @@
-//begin at 2020/2/23 12:46:07
+//2020-03-15 17:19:12
 class Solution {
     public int[] closestDivisors(int num) {
-        int []ans1 = cal(num+1);
-        int []ans2 = cal(num+2);
-        return Math.abs(ans1[0] - ans1[1]) > Math.abs(ans2[0] - ans2[1]) ? ans2 : ans1;
+        int []nums1 = calculateDivisors(num+1);
+        int []nums2 = calculateDivisors(num+2);
+        return Math.abs(nums1[0]-nums1[1]) < Math.abs(nums2[0]-nums2[1]) ? nums1 : nums2;
     }
 
-    int[] cal(int num) {
-        int sq = (int) Math.sqrt(num), i;
-        if(sq * sq == num)
-            return new int[]{sq, sq};
-        for (i = sq + 1; i > 0; i--) {
-            if (num % i == 0)
-                break;
-        }
-        return new int[]{i, num / i};
+    private int[] calculateDivisors(int num){
+        int sqrt = (int)Math.sqrt(num), i;
+        if(sqrt*sqrt == num) return new int[]{sqrt, sqrt};
+        for(i=sqrt; i>0 && num%i!=0; i--);
+        return new int[]{i, num/i};
     }
 }
-
-//finish at 2020-02-23 13:07:08
+//2020-03-15 17:29:34
