@@ -1,14 +1,15 @@
-//begin at 2020-02-27 00:14:50
-
+//2020-03-16 17:49:18
 class Solution {
+
     private Map<Integer, Integer> memo = new HashMap<>();
+
     public int superEggDrop(int K, int N) {
         if(N==0) return 0;
         if(K==1) return N;
-        int key = N*1000+K;
+        int key = N*1000 + K;
         if(!memo.containsKey(key)){
-            int low = 1, high = N;
-            while(low+1 < high ){
+            int high = N, low = 1;
+            while(low+1<high){
                 int mid = (low+high)/2;
                 int broken = superEggDrop(K-1, mid-1);
                 int unbroken = superEggDrop(K, N-mid);
@@ -24,9 +25,10 @@ class Solution {
                 Math.max(superEggDrop(K-1, low-1), superEggDrop(K, N-low)),
                 Math.max(superEggDrop(K-1, high-1), superEggDrop(K, N-high))
             ));
+            // System.out.println("put:" + key+":"+memo.get(key));
         }
+        // System.out.println("get:" + key+":"+memo.get(key));
         return memo.get(key);
     }
 }
-
-//finish at 2020-02-27 01:22:10
+//2020-03-16 18:10:52
