@@ -1,14 +1,14 @@
-// 2020-03-06 21:20:28
+//2020-03-16 17:33:26
 class Solution {
     public int majorityElement(int[] nums) {
-        int count = 0, num=-1;
+        int flag = 0, n = 0;
         for(int i:nums){
-            if(count==0){
-                num = i;
+            if(flag==0){
+                n = i;
             }
-            count += (num==i ? 1:-1);
+            flag += n==i?1:-1;
         }
-        return num;
+        return n;
     }
 }
-// 2020-03-06 21:24:44
+//2020-03-16 17:37:44
