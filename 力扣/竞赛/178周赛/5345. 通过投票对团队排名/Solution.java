@@ -1,38 +1,52 @@
-import java.util.*;
-import java.util.stream.Collectors;
-
-// begin at 2020/3/1 10:53
+//2020/3/18 17:12:14
 class Solution {
     public String rankTeams(String[] votes) {
-        Map<Character, List<Integer>> map = new HashMap<>();
-        for(String v : votes){
-            char[] arr = v.toCharArray();
-            for(int i=0; i<v.length(); i++){
-                if(!map.containsKey(arr[i])){
-                    map.put(arr[i], new ArrayList<>());
-                }
-                map.get(arr[i]).add( i);
+        int rankNum = votes[0].length();
+        //stat[i][j]代表j队在第i名获得的票数
+        int[][] stat = new int[rankNum][26];
+        for (int i = 0; i < rankNum; i++)
+            for (String v : votes) {
+                stat[i][v.charAt(i) - 'A']++;
             }
+
+        //为每一队分配一个数字id
+        TreeSet<Integer> ids = new TreeSet<>();
+        for (int i = 0; i < rankNum; i++) {
+            ids.add(votes[0].charAt(i) - 'A');
         }
 
-        List<Map.Entry<Character, List<Integer>>> list = map.entrySet().stream().sorted((en1, en2)->{
-            List<Integer> val1 = en1.getValue();
-            List<Integer> val2 = en2.getValue();
-            Collections.sort(val1);
-            Collections.sort(val2);
-            for(int i=0; i<val1.size(); i++){
-                if(val1.get(i) != val2.get(i))
-                    return val1.get(i).compareTo(val2.get(i));
-            }
-            return en1.getKey().compareTo(en2.getKey());
-        }).collect(Collectors.toList());
-
-        StringBuilder res = new StringBuilder();
-        list.stream().forEach(e->res.append(e.getKey()));
-        return res.toString();
+        //循环找出当前的第一，然后删除第一的排名数据和id
+        StringBuilder builder = new StringBuilder();
+        for (int i = 0; i < rankNum; i++) {
+            int index = findMost(stat, 0, ids);
+            //清空index队的排名数据
+            for (int j = 0; j < rankNum; j++)
+                stat[j][index] = 0;
+            //删除index队
+            ids.remove(index);
+            builder.append((char) (index + 'A'));
+        }
+        return builder.toString();
     }
 
+    private int findMost(int[][] stat, int level, TreeSet<Integer> ids) {
+        int top = ids.first();
+        if (ids.size() == 1 || level == stat.length)
+            return top;
+
+        for (int id : ids) {
+            if (stat[level][id] > stat[level][top]) top = id;
+        }
+
+        TreeSet<Integer> set = new TreeSet<>();
+        for (int id : ids) {
+            //如果该字母最大排名的票数最多，将其加入队列中
+            if (stat[level][id] == stat[level][top]) {
+                set.add(id);
+            }
+        }
+        return findMost(stat, level + 1, set);
+    }
 
 }
-
-// finish at 2020/3/1 13:18
+//2020-03-18 18:25:05
