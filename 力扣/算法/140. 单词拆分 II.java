@@ -1,54 +1,53 @@
-//begin at 2020-02-28 11:24:41
+
+
+// 2020-03-18 16:38:26
 class Solution {
-    private boolean []dp; //表示当前位置结尾的字符串能否被完全拆分
-    private List<String> path = new ArrayList<>();
-    private String s;
-    private List<String> wordDict;
-    private List<String> result = new ArrayList<>();
+
+    boolean []dp;
+    List<String> path = new ArrayList<>();
+    List<String> result = new ArrayList<>();
 
     public List<String> wordBreak(String s, List<String> wordDict) {
-        this.s = s;
-        this.wordDict = wordDict;
-        int len = s.length();
-        dp = new boolean[len+1];
+        dp = new boolean[s.length()+1];
         dp[0] = true;
-
-        for(int end = 1; end <= len; end++){
-            for(int start = 0; start < end; start++){
+        for(int end=0; end<=s.length(); end++){
+            for(int start=0; start<end; start++){
                 if(dp[start] && wordDict.contains(s.substring(start, end))){
+                    // System.out.println(s.substring(start, end));
                     dp[end] = true;
                     break;
                 }
             }
         }
-        if(dp[len]){
-            dfs(len);
 
+        if(dp[s.length()]){
+            dfs(s, wordDict, s.length());
         }
         return result;
     }
 
-    public void dfs(int end){
+    private void dfs(String s, List<String> wordDict, int end){
         if(end == 0){
             StringBuilder builder = new StringBuilder();
-            for(int i=path.size()-1; i>=0; i--){
-                builder.append(path.get(i)).append(" ");
+            if(!path.isEmpty())
+                builder.append(path.get(path.size()-1));
+            for(int i=path.size()-2; i>=0; i--){
+                builder.append(" ").append(path.get(i));
             }
-            result.add(builder.substring(0, builder.length()-1).toString());
+            result.add(builder.toString());
             return;
         }
-        for(int start = 0; start <end; start++){
+        for(int start=0; start<end; start++){
             if(dp[start]){
-                String sub = s.substring(start, end);
-                if(wordDict.contains(sub)){
-                    path.add(sub);
-                    dfs(start);
+                String word = s.substring(start, end);
+                // System.out.println(word);
+                if(wordDict.contains(word)){
+                    path.add(word);
+                    dfs(s, wordDict, start);
                     path.remove(path.size()-1);
                 }
             }
         }
     }
-
 }
-
-//finish at 2020-02-28 12:19:04
+//2020-03-18 17:09:52
