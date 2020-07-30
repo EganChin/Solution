@@ -2,6 +2,13 @@ import javax.swing.tree.TreeNode;
 
 import org.graalvm.compiler.core.common.alloc.Trace;
 
+
+public class TreeNode {
+    int val;
+    TreeNode left;
+    TreeNode right;
+    TreeNode(int x) { val = x; }
+}
 //2020年07月30日10:02:23
 /*
 1.终止条件：
