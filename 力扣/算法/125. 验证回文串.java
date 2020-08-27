@@ -1,11 +1,9 @@
-// begin at 2020-02-28 09:47:01
+//2020-08-27 09:51:03
 class Solution {
     public boolean isPalindrome(String s) {
-
-        s = s.toUpperCase();
-        char []str = s.toCharArray();
+        char str[] = s.toUpperCase().toCharArray();
         int left = 0, right = str.length-1;
-        while(left<right){
+        while(left < right){
             if(isValid(str[left])){
                 if(isValid(str[right])){
                     if(str[left] != str[right]){
@@ -24,8 +22,8 @@ class Solution {
         return true;
     }
 
-    public boolean isValid(char ch){
-        return (ch>='0' && ch <= '9') || (ch>='A' && ch <='Z');
+    private boolean isValid(char ch){
+        return (ch >= 'A' && ch <= 'Z') || (ch >= '0' && ch <= '9');
     }
 }
-//finish at 2020-02-28 10:37:09
+//2020-08-27 09:57:08
